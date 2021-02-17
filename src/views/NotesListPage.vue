@@ -26,17 +26,11 @@
 </template>
 
 <script>
+import {  mapState } from 'vuex';
+
 export default {
-  data() {
-    return {
-      notes: [
-        {
-          id: '123',
-          title: 'first',
-          content: '### COntent',
-        },
-      ],
-    };
-  },
+  computed:{
+      ...mapState('notes',['notes'])
+  }
 };
 </script>
