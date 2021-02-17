@@ -12,6 +12,15 @@ const routes = [
         /* webpackChunkName: "notesListPage" */ '@/views/NotesListPage.vue'
       ),
   },
+  
+  {
+    path: ':noteId',
+    name: 'NoteDetails',
+    component: () =>
+      import(
+        /* webpackChunkName: "noteDetails" */ '@/views/NoteDetailsPage.vue'
+      ),
+  },
   {
     path: '/*',
     redirect: { name: 'NotesList' },
