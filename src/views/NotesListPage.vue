@@ -1,7 +1,7 @@
 <template>
   <v-main class="grey lighten-5" style="max-height: 100%">
     <v-app-bar app color="primary" dark>
-      <v-toolbar-title>Notes</v-toolbar-title>
+      <v-toolbar-title>{{ $t('notes.notesList.title') }}</v-toolbar-title>
     </v-app-bar>
     <v-container>
       <v-list>
@@ -29,7 +29,7 @@
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
-    <NewNoteDialog :isOpened.sync="isDialogOpened"/>
+    <NewNoteDialog :isOpened.sync="isDialogOpened" />
   </v-main>
 </template>
 
@@ -42,11 +42,11 @@ export default {
   components: {
     NewNoteDialog,
   },
-  data() {
-    return {
-      isDialogOpened: false,
-    };
-  },
+
+  data: () => ({
+    isDialogOpened: false,
+  }),
+
   computed: {
     ...mapState('notes', ['notes']),
   },

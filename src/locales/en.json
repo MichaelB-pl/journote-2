@@ -1,3 +1,18 @@
 {
-  "message": "hello i18n !!"
+  "basics": {
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "save": "Save"
+  },
+  "notes": {
+    "newNoteDialog": {
+      "content": "Content",
+      "contentPlaceholder": "Use Markdown",
+      "newNote": "New note",
+      "title": "Title"
+    },
+    "notesList": {
+      "title": "Notes"
+    }
+  }
 }

@@ -14,7 +14,7 @@ const routes = [
   },
   
   {
-    path: ':noteId',
+    path: '/notes/:noteId',
     name: 'NoteDetails',
     component: () =>
       import(

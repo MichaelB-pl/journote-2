@@ -12,7 +12,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>
-          NEW NOTE
+          {{ $t('notes.newNoteDialog.newNote') }}
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click="saveNote">
@@ -24,7 +24,7 @@
         <v-textarea
           v-model="title"
           class="py-5"
-          label="title"
+          :label="$t('notes.newNoteDialog.title')"
           rows="1"
           outlined
           auto-grow
@@ -33,8 +33,8 @@
         </v-textarea>
         <v-textarea
           v-model="content"
-          label="content"
-          placeholder="basldlabdab awjdkawjdl jwalkdjaw ljlkj"
+          :label="$t('notes.newNoteDialog.content')"
+          :placeholder="$t('notes.newNoteDialog.contentPlaceholder')"
           outlined
           rows="10"
           auto-grow
