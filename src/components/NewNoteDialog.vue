@@ -15,13 +15,14 @@
           NEW NOTE
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon @click="dialog = false">
+        <v-btn icon @click="saveNote">
           <v-icon>mdi-content-save-outline</v-icon>
         </v-btn>
       </v-toolbar>
 
       <v-card-text>
         <v-textarea
+          v-model="title"
           class="py-5"
           label="title"
           rows="1"
@@ -31,6 +32,7 @@
         >
         </v-textarea>
         <v-textarea
+          v-model="content"
           label="content"
           placeholder="basldlabdab awjdkawjdl jwalkdjaw ljlkj"
           outlined
@@ -45,10 +47,18 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   props: {
     isOpened: Boolean,
   },
+
+  data: () => ({
+    title: '',
+    content: '',
+  }),
+
   computed: {
     dialog: {
       get() {
@@ -57,6 +67,37 @@ export default {
       set(newValue) {
         this.$emit('update:isOpened', newValue);
       },
+    },
+  },
+
+  watch: {
+    dialog() {
+      this.clearInputs();
+    },
+  },
+
+  methods: {
+    ...mapMutations('notes', ['addNote']),
+
+    saveNote() {
+      const { title, content } = this;
+      if (!!title || !!content) {
+        const id = 'id_' + Date.now();
+        const note = {
+          id,
+          title,
+          content,
+        };
+
+        this.addNote(note);
+
+        this.dialog = false;
+      }
+    },
+
+    clearInputs() {
+      this.title = '';
+      this.content = '';
     },
   },
 };
