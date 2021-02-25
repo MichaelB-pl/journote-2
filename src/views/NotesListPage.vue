@@ -1,9 +1,9 @@
 <template>
-  <v-main>
+  <v-main class="grey lighten-5" style="max-height: 100%">
     <v-app-bar app color="primary" dark>
       <v-toolbar-title>Notes</v-toolbar-title>
     </v-app-bar>
-    <v-container style="position: relative">
+    <v-container>
       <v-list>
         <v-list-item
           v-for="note in notes"
@@ -16,21 +16,39 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <router-view/>
-
-      <v-btn fab color="primary" absolute bottom right>
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
     </v-container>
+
+    <v-btn
+      class="mb-10"
+      fab
+      color="primary"
+      absolute
+      bottom
+      right
+      @click="isDialogOpened = true"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
+    <NewNoteDialog :isOpened.sync="isDialogOpened"/>
   </v-main>
 </template>
 
 <script>
-import {  mapState } from 'vuex';
+import { mapState } from 'vuex';
+
+import NewNoteDialog from '@/components/NewNoteDialog';
 
 export default {
-  computed:{
-      ...mapState('notes',['notes'])
-  }
+  components: {
+    NewNoteDialog,
+  },
+  data() {
+    return {
+      isDialogOpened: false,
+    };
+  },
+  computed: {
+    ...mapState('notes', ['notes']),
+  },
 };
 </script>
