@@ -20,6 +20,7 @@ const routes = [
       import(
         /* webpackChunkName: "noteDetails" */ '@/views/NoteDetailsPage.vue'
       ),
+      props:true
   },
   {
     path: '/*',

@@ -3,6 +3,13 @@ export default {
   state: {
     notes: [],
   },
+
+  getters: {
+    getNoteById: (state) => (id) => {
+      return state.notes.find((note) => note.id === id);
+    },
+  },
+
   mutations: {
     initNotesFromStorage(state) {
       const json = localStorage.getItem('notes');

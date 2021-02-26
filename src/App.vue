@@ -7,6 +7,8 @@
 <script>
 import { mapMutations } from 'vuex';
 
+import { bindHelpersWithVuetify } from '@/helpers/vuetifyHelper';
+
 export default {
   name: 'App',
 
@@ -20,6 +22,7 @@ export default {
 
   mounted() {
     this.initNotesFromStorage();
+    bindHelpersWithVuetify(this.$vuetify);
   },
 };
 </script>

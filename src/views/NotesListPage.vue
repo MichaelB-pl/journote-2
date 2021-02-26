@@ -1,5 +1,5 @@
 <template>
-  <v-main class="grey lighten-5" style="max-height: 100%">
+  <v-main class="grey lighten-3">
     <v-app-bar app color="primary" dark>
       <v-toolbar-title>{{ $t('notes.notesList.title') }}</v-toolbar-title>
     </v-app-bar>
