@@ -1,37 +1,29 @@
-// import Note from '@/models/note';
-
 export default {
   namespaced: true,
   state: {
-    notes: [
-        {
-            id: '123',
-            title: 'first',
-            content: '### COntent',
-          },{
-            id: '124',
-            title: 'second',
-            content: '### COntent',
-          },{
-            id: '125',
-            title: 'third',
-            content: '### COntent',
-          },
-    ],
+    notes: [],
   },
   mutations: {
+    initNotesFromStorage(state) {
+      const json = localStorage.getItem('notes');
+      state.notes = JSON.parse(json) || [];
+    },
+
     addNote(state, note) {
       state.notes.push(note);
+      localStorage.setItem('notes', JSON.stringify(state.notes));
     },
 
     updateNote(state, updatedNote) {
       state.notes = state.notes.map((note) =>
         note.id === updatedNote.id ? updatedNote : note
       );
+      localStorage.setItem('notes', JSON.stringify(state.notes));
     },
 
     deleteNote(state, { id }) {
       state.notes = state.notes.filer((note) => note.id != id);
+      localStorage.setItem('notes', JSON.stringify(state.notes));
     },
   },
 };

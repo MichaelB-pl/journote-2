@@ -88,7 +88,6 @@ export default {
           title,
           content,
         };
-
         this.addNote(note);
 
         this.dialog = false;
