@@ -8,6 +8,7 @@
     "newNoteDialog": {
       "content": "Content",
       "contentPlaceholder": "Use Markdown",
+      "editNote": "Edit note",
       "newNote": "New note",
       "title": "Title"
     },

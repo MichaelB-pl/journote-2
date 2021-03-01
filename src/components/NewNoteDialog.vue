@@ -12,7 +12,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>
-          {{ $t('notes.newNoteDialog.newNote') }}
+          {{ toolbarTitle }}
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click="saveNote">
@@ -47,11 +47,12 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   props: {
     isOpened: Boolean,
+    noteId: String,
   },
 
   data: () => ({
@@ -60,6 +61,8 @@ export default {
   }),
 
   computed: {
+    ...mapGetters('notes', ['getNoteById']),
+
     dialog: {
       get() {
         return this.isOpened;
@@ -68,30 +71,54 @@ export default {
         this.$emit('update:isOpened', newValue);
       },
     },
+
+    toolbarTitle() {
+      return this.$t(
+        `notes.newNoteDialog.${this.noteId ? 'editNote' : 'newNote'}`
+      );
+    },
   },
 
   watch: {
-    dialog() {
-      this.clearInputs();
+    dialog(isVisible) {
+      if (!isVisible) {
+        this.clearInputs();
+      } else {
+        this.tryFillInputsWithNoteData();
+      }
     },
   },
 
   methods: {
-    ...mapMutations('notes', ['addNote']),
+    ...mapMutations('notes', ['addNote', 'updateNote']),
 
     saveNote() {
-      const { title, content } = this;
-      if (!!title || !!content) {
-        const id = 'id_' + Date.now();
-        const note = {
-          id,
-          title,
-          content,
-        };
-        this.addNote(note);
+      const { title, content, noteId } = this;
+      if (!title && !content) return;
 
-        this.dialog = false;
+      const id = noteId || 'id_' + Date.now();
+      const note = {
+        id,
+        title,
+        content,
+      };
+
+      if (noteId) {
+        this.updateNote(note);
+      } else {
+        this.addNote(note);
       }
+
+      this.dialog = false;
+    },
+
+    tryFillInputsWithNoteData() {
+      const { noteId } = this;
+      if (!noteId) return;
+
+      const { title, content } = this.getNoteById(noteId);
+      this.title = title;
+      this.content = content;
     },
 
     clearInputs() {
