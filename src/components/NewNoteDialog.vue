@@ -8,7 +8,7 @@
     scrollable
   >
     <v-card>
-      <v-toolbar flat dark color="primary darken-1">
+      <v-toolbar flat dark color="primary darken-1" :max-height="toolbarHeight">
         <v-btn icon="" @click="dialog = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
@@ -50,6 +50,8 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 
+import { getToolbarHeight } from '@/helpers/vuetifyHelper';
+
 export default {
   props: {
     isOpened: Boolean,
@@ -77,6 +79,10 @@ export default {
       return this.$t(
         `notes.newNoteDialog.${this.noteId ? 'editNote' : 'newNote'}`
       );
+    },
+
+    toolbarHeight() {
+      return getToolbarHeight();
     },
   },
 
