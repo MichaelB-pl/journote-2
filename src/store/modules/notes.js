@@ -29,7 +29,7 @@ export default {
     },
 
     deleteNote(state, { id }) {
-      state.notes = state.notes.filer((note) => note.id != id);
+      state.notes = state.notes.filter((note) => note.id != id);
       localStorage.setItem('notes', JSON.stringify(state.notes));
     },
   },

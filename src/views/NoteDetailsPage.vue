@@ -10,6 +10,21 @@
       <v-btn icon @click="$router.go(-1)">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
+      <v-spacer></v-spacer>
+      <v-menu>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item @click="moveNoteToTrash">
+            <v-list-item-title>
+              {{ $t('basics.delete') }}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-sheet
@@ -41,7 +56,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { getContentHeight } from '@/helpers/vuetifyHelper';
 
 import NewNoteDialog from '@/components/NewNoteDialog';
@@ -66,11 +81,20 @@ export default {
     ...mapGetters('notes', ['getNoteById']),
 
     note() {
-      return this.getNoteById(this.noteId);
+      return this.getNoteById(this.noteId) || {};
     },
 
     contentHeight() {
       return getContentHeight();
+    },
+  },
+
+  methods: {
+    ...mapMutations('notes', ['deleteNote']),
+
+    moveNoteToTrash() {
+      this.$router.go(-1);
+      this.deleteNote(this.note);
     },
   },
 };

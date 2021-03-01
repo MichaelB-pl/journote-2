@@ -5,6 +5,7 @@
     fullscreen
     transition="dialog-bottom-transition"
     persistent
+    scrollable
   >
     <v-card>
       <v-toolbar flat dark color="primary darken-1">

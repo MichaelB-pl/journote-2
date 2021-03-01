@@ -1,10 +1,14 @@
 {
   "basics": {
     "cancel": "Cancel",
+    "delete": "Delete",
     "edit": "Edit",
     "save": "Save"
   },
   "notes": {
+    "actions": {
+      "moveNoteToTrash": "Move note to trash"
+    },
     "newNoteDialog": {
       "content": "Content",
       "contentPlaceholder": "Use Markdown",
