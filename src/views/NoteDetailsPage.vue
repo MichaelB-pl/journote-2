@@ -36,7 +36,7 @@
       <v-container class="pa-5">
         <h1>{{ note.title }}</h1>
         <v-divider class="my-3"></v-divider>
-        {{ note.content }}
+        <MardonPreview :text="note.content" />
       </v-container>
     </v-sheet>
 
@@ -60,10 +60,12 @@ import { mapGetters, mapMutations } from 'vuex';
 import { getContentHeight } from '@/helpers/vuetifyHelper';
 
 import NewNoteDialog from '@/components/NewNoteDialog';
+import MardonPreview from '@/components/MardonPreview';
 
 export default {
   components: {
     NewNoteDialog,
+    MardonPreview,
   },
 
   props: {
