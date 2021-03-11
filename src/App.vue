@@ -1,5 +1,5 @@
 <template>
-  <v-app class="grey lighten-5">
+  <v-app>
     <router-view />
   </v-app>
 </template>
@@ -11,10 +11,6 @@ import { bindHelpersWithVuetify } from '@/helpers/vuetifyHelper';
 
 export default {
   name: 'App',
-
-  data: () => ({
-    //
-  }),
 
   methods: {
     ...mapMutations('notes', ['initNotesFromStorage']),

@@ -1,7 +1,7 @@
 <template>
-  <v-main>
+  <v-main class="grey lighten-3">
     <v-app-bar
-      absolute
+      fixed
       color="white"
       elevate-on-scroll
       hide-on-scroll
@@ -27,19 +27,6 @@
       </v-menu>
     </v-app-bar>
 
-    <v-sheet
-      id="scrolling-content"
-      class="overflow-y-auto pt-10"
-      :height="contentHeight"
-      max-width="720"
-    >
-      <v-container class="pa-5">
-        <h1>{{ note.title }}</h1>
-        <v-divider class="my-3"></v-divider>
-        <MardonPreview :text="note.content" />
-      </v-container>
-    </v-sheet>
-
     <v-btn
       class="mb-10"
       fab
@@ -51,13 +38,35 @@
     >
       <v-icon>mdi-pencil-outline</v-icon>
     </v-btn>
+
+    <v-container
+      id="scrolling-content"
+      style="max-height: 100vh"
+      class="overflow-y-auto px-0"
+      fluid
+    >
+      <v-row no-gutters justify="center" v-resize="updateContentWidth">
+        <v-col cols="auto">
+          <v-sheet
+            :style="contentTopMargin"
+            class="px-5 py-3"
+            :width="contentWidth"
+            :min-height="contentHeight"
+          >
+            <h1>{{ note.title }}</h1>
+            <v-divider v-if="note.title" class="my-3"></v-divider>
+            <MardonPreview :text="note.content" />
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
     <NewNoteDialog :isOpened.sync="isDialogOpened" :noteId="noteId" />
   </v-main>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import { getContentHeight } from '@/helpers/vuetifyHelper';
+import { getContentHeight, getToolbarHeight } from '@/helpers/vuetifyHelper';
 
 import NewNoteDialog from '@/components/NewNoteDialog';
 import MardonPreview from '@/components/MardonPreview';
@@ -77,6 +86,7 @@ export default {
 
   data: () => ({
     isDialogOpened: false,
+    contentWidth: 0,
   }),
 
   computed: {
@@ -87,7 +97,11 @@ export default {
     },
 
     contentHeight() {
-      return getContentHeight();
+      return getContentHeight(2);
+    },
+
+    contentTopMargin() {
+      return 'margin-top: ' + getToolbarHeight() + 'px';
     },
   },
 
@@ -98,6 +112,17 @@ export default {
       this.$router.go(-1);
       this.deleteNote(this.note);
     },
+
+    updateContentWidth() {
+      const windowWidth = window.innerWidth;
+      const maxWidth = 720;
+
+      this.contentWidth = windowWidth < maxWidth ? windowWidth : maxWidth;
+    },
+  },
+
+  mounted() {
+    this.updateContentWidth();
   },
 };
 </script>
